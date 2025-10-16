@@ -78,14 +78,17 @@ def recommend_menu():
             case _: print("Невірний вибір, спробуй ще раз.")
 
 
+def get_random_choice(prompt, values):
+    print(prompt)
+    print(random.choice(values))
+
+
 def jokester():
-    print("\n--- Анекдот ---")
-    print(random.choice(JOKES))
+    get_random_choice("\n--- Анекдот ---", JOKES)
 
 
 def story_teller():
-    print("\n--- Цікава історія ---")
-    print(random.choice(STORIES))
+    get_random_choice("\n--- Цікава історія ---", STORIES)
 
 
 def rps_result(user, comp):
