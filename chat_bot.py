@@ -20,6 +20,11 @@ GAMES = {
     "аркади": ["Tetris", "Super Mario Bros", "Geometry Dash"]
 }
 
+JOKES = [
+    "— Слон у слона зайняв місце в бібліотеці — що він читав? — Тренінг пам’яті.",
+    "— Який найкоротший шлях до серця програміста? — через Git push.",
+]
+
 
 def show_list(items):
     for i, it in enumerate(items, start=1):
@@ -69,7 +74,8 @@ def recommend_menu():
 
 
 def jokester():
-    pass
+    print("\n--- Анекдот ---")
+    print(random.choice(JOKES))
 
 
 def story_teller():
