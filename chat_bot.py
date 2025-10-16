@@ -1,16 +1,62 @@
 import random
 
+MOVIES = {
+    "комедія": ["The Grand Budapest Hotel", "Groundhog Day", "Superbad", "Кавказька полонянка (укр.)"],
+    "драма": ["The Shawshank Redemption", "Forrest Gump", "The Godfather"],
+    "фантастика": ["Interstellar", "Inception", "The Matrix", "Blade Runner 2049"],
+    "анімація": ["Spirited Away", "Toy Story", "Coco"]
+}
+
+MUSIC = {
+    "рок": ["Queen - Bohemian Rhapsody", "Nirvana - Smells Like Teen Spirit", "The Beatles - Hey Jude"],
+    "поп": ["Dua Lipa - Levitating", "Taylor Swift - Shake It Off", "Michael Jackson - Billie Jean"],
+    "джаз": ["Miles Davis - So What", "John Coltrane - Naima"],
+    "класика": ["Beethoven - Symphony No.5", "Mozart - Eine kleine Nachtmusik"]
+}
+
+GAMES = {
+    "логічні": ["Sudoku", "Chess", "2048"],
+    "мультіплеєр": ["Among Us", "League of Legends", "Dota 2"],
+    "аркади": ["Tetris", "Super Mario Bros", "Geometry Dash"]
+}
+
+
+def show_list(items):
+    for i, it in enumerate(items, start=1):
+        print(f"{i}. {it}")
+
 
 def recommend_movies():
-    pass
+    print("\nДоступні жанри:", ", ".join(MOVIES.keys()))
+    genre = input("Введи жанр: ").strip().lower()
+    items = MOVIES.get(genre)
+    if not items:
+        print("Жанр не знайдено.")
+        return
+    print(f"\nРекомендації фільмів у жанрі {genre}")
+    show_list(items)
 
 
 def recommend_music():
-    pass
+    print("\nДоступні жанри:", ", ".join(MUSIC.keys()))
+    genre = input("Введи жанр: ").strip().lower()
+    items = MUSIC.get(genre)
+    if not items:
+        print("Жанр не знайдено.")
+        return
+    print(f"\nРекомендації музики у жанрі {genre}")
+    show_list(items)
 
 
 def recommend_games():
-    pass
+    print("\nДоступні жанри:", ", ".join(GAMES.keys()))
+    genre = input("Введи жанр: ").strip().lower()
+    items = GAMES.get(genre)
+    if not items:
+        print("Жанр не знайдено.")
+        return
+    print(f"\nРекомендації ігор у жанрі {genre}")
+    show_list(items)
 
 
 def recommend_menu():
