@@ -88,8 +88,39 @@ def story_teller():
     print(random.choice(STORIES))
 
 
+def rps_result(user, comp):
+    """0 - нічия, 1 - юзер виграв, 2 - комп виграв"""
+    if user == comp:
+        return 0
+    wins = {("1, 2"), ("2", "3"), ("3", "1")}
+    if (user, comp) in wins:
+        return 1
+    return 2
+
+
 def rps_game():
-    pass
+    moves = {"1": "Камінь", "2": "Ножиці", "3": "Папір"}
+
+    print("\n=== Камінь-ножиці-папір ===")
+    print("1 - Камінь, 2 - Ножиці, 3 - Папір, 0 - Вихід")
+
+    while True:
+
+        choice = input("Твій хід: ").strip()
+        if choice == "0":
+            break
+        if not choice in moves:
+            print("Невірний вибір. Спробуй ще.")
+            continue
+        random_choice = random.choice(list(moves.keys()))
+
+        print(f"Ти: {moves[choice]} VS Комп'ютер: {moves[random_choice]}")
+        result = rps_result(choice, random_choice)
+
+        match result:
+            case 0: print("Нічия!")
+            case 1: print("Ти виграв!")
+            case _: print("Ти програв.")
 
 
 def guess_number():
