@@ -26,37 +26,27 @@ def show_list(items):
         print(f"{i}. {it}")
 
 
-def recommend_movies():
-    print("\nДоступні жанри:", ", ".join(MOVIES.keys()))
+def ask_genre(genres, recommendation):
+    print("\nДоступні жанри:", ", ".join(genres.keys()))
     genre = input("Введи жанр: ").strip().lower()
-    items = MOVIES.get(genre)
+    items = genres.get(genre)
     if not items:
         print("Жанр не знайдено.")
         return
-    print(f"\nРекомендації фільмів у жанрі {genre}")
+    print(f"\n{recommendation} {genre}")
     show_list(items)
+
+
+def recommend_movies():
+    ask_genre(MOVIES, "\nРекомендації фільмів у жанрі")
 
 
 def recommend_music():
-    print("\nДоступні жанри:", ", ".join(MUSIC.keys()))
-    genre = input("Введи жанр: ").strip().lower()
-    items = MUSIC.get(genre)
-    if not items:
-        print("Жанр не знайдено.")
-        return
-    print(f"\nРекомендації музики у жанрі {genre}")
-    show_list(items)
+    ask_genre(MUSIC, "\nРекомендації музики у жанрі")
 
 
 def recommend_games():
-    print("\nДоступні жанри:", ", ".join(GAMES.keys()))
-    genre = input("Введи жанр: ").strip().lower()
-    items = GAMES.get(genre)
-    if not items:
-        print("Жанр не знайдено.")
-        return
-    print(f"\nРекомендації ігор у жанрі {genre}")
-    show_list(items)
+    ask_genre(GAMES, "\nРекомендації ігор у жанрі")
 
 
 def recommend_menu():
