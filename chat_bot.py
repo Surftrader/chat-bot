@@ -1,3 +1,5 @@
+import random
+
 
 def recommend_menu():
     pass
@@ -16,7 +18,19 @@ def rps_game():
 
 
 def guess_number():
-    pass
+    count = 1
+    origin_number = random.randint(1, 10)
+    while True:
+        try:
+            print("\nСпробуй вгадати число!")
+            number = int(input("Введіть число від 1 до 10: ").strip())
+            if number == origin_number:
+                print(f"\nТи виграв з {count} спроби!")
+                break
+            count += 1
+            print("\nТи не вгадав. Спробуй ще раз.")
+        except Exception as e:
+            print("Помилка введення числа. Спробуй ще.")
 
 
 def games_menu():
