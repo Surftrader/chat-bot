@@ -1,8 +1,35 @@
 import random
 
 
-def recommend_menu():
+def recommend_movies():
     pass
+
+
+def recommend_music():
+    pass
+
+
+def recommend_games():
+    pass
+
+
+def recommend_menu():
+    while True:
+        print("\n--- Рекомендації ---")
+        print("1. Фільми за жанрами")
+        print("2. Музика за жанрами")
+        print("3. Ігри за жанрами")
+        print("0. Назад")
+
+        choice = input("Вибір: ").strip()
+
+        match choice:
+            case "1": recommend_movies()
+            case "2": recommend_music()
+            case "3": recommend_games()
+            case "0":
+                break
+            case _: print("Невірний вибір, спробуй ще раз.")
 
 
 def jokester():
