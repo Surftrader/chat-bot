@@ -11,8 +11,28 @@ def story_teller():
     pass
 
 
-def games_menu():
+def rps_game():
     pass
+
+
+def guess_number():
+    pass
+
+
+def games_menu():
+    while True:
+        print("\n---Ігри---")
+        print("1. Камінь-ножниці-папір")
+        print("2. Вгадай число")
+        print("0. Назад")
+
+        choice = input("Ваш вибір: ").strip()
+
+        match choice:
+            case "1": rps_game()
+            case "2": guess_number()
+            case "0": break
+            case _: print("Невірний вибір")
 
 
 def main_menu():
