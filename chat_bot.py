@@ -1,5 +1,10 @@
 import random
 
+try:
+    from prettytable import PrettyTable
+except Exception:
+    PrettyTable = None
+
 MOVIES = {
     "комедія": ["The Grand Budapest Hotel", "Groundhog Day", "Superbad", "Кавказька полонянка (укр.)"],
     "драма": ["The Shawshank Redemption", "Forrest Gump", "The Godfather"],
@@ -32,8 +37,15 @@ STORIES = [
 
 
 def show_list(items):
-    for i, it in enumerate(items, start=1):
-        print(f"{i}. {it}")
+    if PrettyTable:
+        table = PrettyTable()
+        table.field_names = ["№", "Назва"]
+        for i, it in enumerate(items, start=1):
+            table.add_row([i, it])
+        print(table)
+    else:
+        for i, it in enumerate(items, start=1):
+            print(f"{i}. {it}")
 
 
 def ask_genre(genres, recommendation):
