@@ -10,6 +10,11 @@ try:
 except Exception:
     tprint = None
 
+try:
+    import pyjokes
+except Exception:
+    pyjokes = None
+
 
 MOVIES = {
     "комедія": ["The Grand Budapest Hotel", "Groundhog Day", "Superbad", "Кавказька полонянка (укр.)"],
@@ -102,7 +107,8 @@ def get_random_choice(prompt, values):
 
 
 def jokester():
-    get_random_choice("\n--- Анекдот ---", JOKES)
+    jokes = pyjokes.get_jokes() if pyjokes else JOKES
+    get_random_choice("\n--- Анекдот ---", jokes)
 
 
 def story_teller():
