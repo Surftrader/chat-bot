@@ -5,6 +5,12 @@ try:
 except Exception:
     PrettyTable = None
 
+try:
+    from art import tprint
+except Exception:
+    tprint = None
+
+
 MOVIES = {
     "комедія": ["The Grand Budapest Hotel", "Groundhog Day", "Superbad", "Кавказька полонянка (укр.)"],
     "драма": ["The Shawshank Redemption", "Forrest Gump", "The Godfather"],
@@ -192,7 +198,15 @@ def main_menu():
             case _: print("Невірний вибір, спробуй ще раз.")
 
 
+def banner():
+    if tprint:
+        tprint("\nENTERTAIN\nBOT", font="small")
+    else:
+        print("ENTERTAIN\nBOT")
+
+
 def main():
+    banner()
     try:
         main_menu()
     except KeyboardInterrupt:
