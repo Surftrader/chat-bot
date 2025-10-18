@@ -15,6 +15,11 @@ try:
 except Exception:
     pyjokes = None
 
+try:
+    import emoji as emoji_pkg
+except Exception:
+    emoji_pkg = None
+
 
 MOVIES = {
     "комедія": ["The Grand Budapest Hotel", "Groundhog Day", "Superbad", "Кавказька полонянка (укр.)"],
@@ -168,7 +173,7 @@ def guess_number():
 
 def games_menu():
     while True:
-        print("\n---Ігри---")
+        print("\n--- Ігри ---")
         print("1. Камінь-ножниці-папір")
         print("2. Вгадай число")
         print("0. Назад")
@@ -182,14 +187,28 @@ def games_menu():
             case _: print("Невірний вибір")
 
 
+def emoji_main_menu():
+    print(
+        f"{emoji_pkg.emojize("1. :clapper_board: Рекомендації (фільм / музика / ігри)")}")
+    print(f"{emoji_pkg.emojize("2. :face_with_tears_of_joy: Анекдот")}")
+    print(f"{emoji_pkg.emojize("3. :books: Цікава історія")}")
+    print(f"{emoji_pkg.emojize("4. :video_game: Ігри")}")
+    print(f"{emoji_pkg.emojize("0. :door: Вийти")}")
+
+
+def simple_main_menu():
+    print("1. Рекомендації (фільм / музика / ігри)")
+    print("2. Анекдот")
+    print("3. Цікава історія")
+    print("4. Ігри")
+    print("0. Вийти")
+
+
 def main_menu():
     while True:
+
         print("\n===== ГОЛОВНЕ МЕНЮ =====")
-        print("1. Рекомендації (фільм / музика / ігри)")
-        print("2. Анекдот")
-        print("3. Цікава історія")
-        print("4. Ігри")
-        print("0. Вийти")
+        emoji_main_menu() if emoji_pkg else simple_main_menu()
 
         choice = input("Ваш вибір: ").strip()
 
