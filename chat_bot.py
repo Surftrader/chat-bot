@@ -1,4 +1,10 @@
 import random
+import time
+
+try:
+    from tqdm import tqdm
+except Exception:
+    tqdm = None
 
 try:
     from prettytable import PrettyTable
@@ -119,7 +125,14 @@ def recommend_menu():
             case _: print(_c("Невірний вибір, спробуй ще раз.", "RED"))
 
 
+def loading_effect(action: str = "пошук"):
+    for _ in tqdm(range(20), desc=f"{action.capitalize()}...", ncols=70, colour="cyan"):
+        time.sleep(0.05)
+
+
 def get_random_choice(prompt, values):
+    if tqdm:
+        loading_effect()
     print(_c(prompt, "BLUE"))
     print(random.choice(values))
 
@@ -244,6 +257,7 @@ def banner():
 
 
 def main():
+    loading_effect("завантаження бота")
     banner()
     try:
         main_menu()
