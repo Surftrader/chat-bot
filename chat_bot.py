@@ -20,6 +20,12 @@ try:
 except Exception:
     emoji_pkg = None
 
+try:
+    from colorama import Fore, Back, Style, init as colorama_init
+    colorama_init()
+except Exception:
+    Fore = Back = Stryle = None
+
 
 MOVIES = {
     "комедія": ["The Grand Budapest Hotel", "Groundhog Day", "Superbad", "Кавказька полонянка (укр.)"],
@@ -52,6 +58,13 @@ STORIES = [
 ]
 
 
+def _c(text: str, color: str = None):
+    if Fore and Style and color:
+        col = getattr(Fore, color.upper(), "")
+        return f"{col}{text}{Style.RESET_ALL}"
+    return text
+
+
 def show_list(items):
     if PrettyTable:
         table = PrettyTable()
@@ -65,13 +78,13 @@ def show_list(items):
 
 
 def ask_genre(genres, recommendation):
-    print("\nДоступні жанри:", ", ".join(genres.keys()))
+    print(_c("\nДоступні жанри:", "YELLOW"), ", ".join(genres.keys()))
     genre = input("Введи жанр: ").strip().lower()
     items = genres.get(genre)
     if not items:
-        print("Жанр не знайдено.")
+        print(_c("Жанр не знайдено.", "RED"))
         return
-    print(f"\n{recommendation} {genre}")
+    print(_c(f"\n{recommendation} {genre}", "MAGENTA"))
     show_list(items)
 
 
@@ -89,11 +102,11 @@ def recommend_games():
 
 def recommend_menu():
     while True:
-        print("\n--- Рекомендації ---")
+        print(_c("\n--- Рекомендації ---", "BLUE"))
         print("1. Фільми за жанрами")
         print("2. Музика за жанрами")
         print("3. Ігри за жанрами")
-        print("0. Назад")
+        print(_c("0. Назад", "RED"))
 
         choice = input("Вибір: ").strip()
 
@@ -103,11 +116,11 @@ def recommend_menu():
             case "3": recommend_games()
             case "0":
                 break
-            case _: print("Невірний вибір, спробуй ще раз.")
+            case _: print(_c("Невірний вибір, спробуй ще раз.", "RED"))
 
 
 def get_random_choice(prompt, values):
-    print(prompt)
+    print(_c(prompt, "BLUE"))
     print(random.choice(values))
 
 
@@ -133,7 +146,7 @@ def rps_result(user, comp):
 def rps_game():
     moves = {"1": "Камінь", "2": "Ножиці", "3": "Папір"}
 
-    print("\n=== Камінь-ножиці-папір ===")
+    print(_c("\n=== Камінь-ножиці-папір ===", "BLUE"))
     print("1 - Камінь, 2 - Ножиці, 3 - Папір, 0 - Вихід")
 
     while True:
@@ -142,7 +155,7 @@ def rps_game():
         if choice == "0":
             break
         if not choice in moves:
-            print("Невірний вибір. Спробуй ще.")
+            print(_c("Невірний вибір. Спробуй ще.", "RED"))
             continue
         random_choice = random.choice(list(moves.keys()))
 
@@ -150,9 +163,9 @@ def rps_game():
         result = rps_result(choice, random_choice)
 
         match result:
-            case 0: print("Нічия!")
-            case 1: print("Ти виграв!")
-            case _: print("Ти програв.")
+            case 0: print(_c("Нічия!", "YELLOW"))
+            case 1: print(_c("Ти виграв!", "GREEN"))
+            case _: print(_c("Ти програв.", "RED"))
 
 
 def guess_number():
@@ -163,20 +176,20 @@ def guess_number():
             print("\nСпробуй вгадати число!")
             number = int(input("Введіть число від 1 до 10: ").strip())
             if number == origin_number:
-                print(f"\nТи виграв з {count} спроби!")
+                print(_c(f"\nТи виграв з {count} спроби!", "GREEN"))
                 break
             count += 1
-            print("\nТи не вгадав. Спробуй ще раз.")
+            print(_c("\nТи не вгадав. Спробуй ще раз.", "RED"))
         except Exception as e:
-            print("Помилка введення числа. Спробуй ще.")
+            print(_c("Помилка введення числа. Спробуй ще.", "RED"))
 
 
 def games_menu():
     while True:
-        print("\n--- Ігри ---")
+        print(_c("\n--- Ігри ---", "BLUE"))
         print("1. Камінь-ножниці-папір")
         print("2. Вгадай число")
-        print("0. Назад")
+        print(_c("0. Назад", "RED"))
 
         choice = input("Ваш вибір: ").strip()
 
@@ -193,7 +206,7 @@ def emoji_main_menu():
     print(f"{emoji_pkg.emojize("2. :face_with_tears_of_joy: Анекдот")}")
     print(f"{emoji_pkg.emojize("3. :books: Цікава історія")}")
     print(f"{emoji_pkg.emojize("4. :video_game: Ігри")}")
-    print(f"{emoji_pkg.emojize("0. :door: Вийти")}")
+    print(_c(f"{emoji_pkg.emojize("0. :door: Вийти")}", "RED"))
 
 
 def simple_main_menu():
@@ -201,13 +214,13 @@ def simple_main_menu():
     print("2. Анекдот")
     print("3. Цікава історія")
     print("4. Ігри")
-    print("0. Вийти")
+    print(_c("0. Вийти", "RED"))
 
 
 def main_menu():
     while True:
 
-        print("\n===== ГОЛОВНЕ МЕНЮ =====")
+        print(_c("\n===== ГОЛОВНЕ МЕНЮ =====", "GREEN"))
         emoji_main_menu() if emoji_pkg else simple_main_menu()
 
         choice = input("Ваш вибір: ").strip()
@@ -218,9 +231,9 @@ def main_menu():
             case "3": story_teller()
             case "4": games_menu()
             case "0":
-                print("До зустрічі!")
+                print(_c("\nДО ЗУСТРІЧІ!", "YELLOW"))
                 break
-            case _: print("Невірний вибір, спробуй ще раз.")
+            case _: print(_c("Невірний вибір, спробуй ще раз.", "RED"))
 
 
 def banner():
@@ -235,7 +248,7 @@ def main():
     try:
         main_menu()
     except KeyboardInterrupt:
-        print("\nВихід...")
+        print(_c("\nВихід...", "RED"))
 
 
 if __name__ == '__main__':
